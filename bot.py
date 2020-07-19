@@ -14,8 +14,8 @@ import traceback
 question_channel = '731928268269158471'
 bot_token = 'NzMzMzM0MzE4NDA3MjIxMzgw.XxBpVw.ModRUDpRDmAQd-HJ7N0Fb2II6p8'
 rp_discord_id = '731892044141690880'
-rp_discord_announcements = '733381694941298798'
-rp_lead = '192148309123530753' #'161940995204841474'
+rp_discord_announcements = '731927613538304152'
+rp_lead = '161940995204841474'
 rp_role = '731892867324444682'
 date_save_file = 'last_reminder.txt'
 
@@ -87,7 +87,6 @@ class DiscordClient(discord.Client):
         
         return (False, None)
 
-
     async def qotw_reminder_loop(self):
         while True:
             try:
@@ -108,6 +107,7 @@ class DiscordClient(discord.Client):
                 traceback.print_exc()
                     
             await asyncio.sleep(5)
+
 
 client = DiscordClient()
 client.run(bot_token)
