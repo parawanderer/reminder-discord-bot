@@ -7,7 +7,6 @@ from os import path
 import os
 import traceback
 
-
 #
 #   Very simple utils set for Reports Patrol Mineplex Discord
 #
@@ -67,7 +66,7 @@ class DiscordClient(discord.Client):
         now = datetime.utcnow()
         now_day = now.strftime("%A")
         now_date  = now.strftime('%Y-%m-%d-%H:%M:%S')
-        day_to_post = 'Sunday' #'Saturday'
+        day_to_post = 'Saturday'
 
         if self.last_sent == None:
             if now_day == day_to_post:
@@ -78,10 +77,12 @@ class DiscordClient(discord.Client):
         if now_day != day_to_post:
             return (False, None)
 
+        old_month = self.last_sent[5:7]
+        current_month = now_date[5:7]
         old_day = self.last_sent[8:10]
         current_day = now_date[8:10]
 
-        if old_day != current_day:
+        if old_day != current_day or old_month != current_month:
             return (True, now_date)
         
         return (False, None)
