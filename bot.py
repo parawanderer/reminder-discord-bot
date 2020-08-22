@@ -33,8 +33,9 @@ class DiscordClient(discord.Client):
         print(f'Logged in as {self.user}')
         self.loop.create_task(self.qotw_reminder_loop())
         self.last_sent = self.get_last_announce_from_file() #'2020-07-19-20:03:41'
-
+        self.writing_file = False
     
+
     async def on_message(self, message):
         if message.author == self.user: return
 
@@ -98,8 +99,10 @@ class DiscordClient(discord.Client):
                         r = self.should_post_qotw()
                         send_now = r[0]
                     
-                        if send_now:
+                        if send_now and not self.writing_file:
+                            self.writing_file = True
                             await c.send(qotw_reminder_msg)
+                            self.writing_file = False
                             self.last_sent = r[1]
                             self.save_new_last_announce()
 
