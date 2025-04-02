@@ -11,17 +11,17 @@ import traceback
 #   Very simple utils set for Reports Patrol Mineplex Discord
 #
 
-question_channel = '731928268269158471'
-bot_token = 'NzMzMzM0MzE4NDA3MjIxMzgw.XxBpVw.ModRUDpRDmAQd-HJ7N0Fb2II6p8'
-rp_discord_id = '731892044141690880'
-rp_discord_announcements = '731927613538304152'
-rp_lead = '161940995204841474'
-rp_role = '731892867324444682'
+question_channel = ''
+bot_token = ''
+rp_discord_id = ''
+rp_discord_announcements = ''
+rp_lead = ''
+rp_role = ''
 date_save_file = 'last_reminder.txt'
 
 
 qotw_reminder_msg = f'''<@&{rp_role}>\n**QOTW Reminder Message!**
-\nIf you are unsure whether you have submitted your QOTW yet, please go to the **QOTW link** and see if it still allows you to send in a response 
+\nIf you are unsure whether you have submitted your QOTW yet, please go to the **QOTW link** and see if it still allows you to send in a response
 (which would mean you haven't sent in a response yet) or says you have already submitted a response.
 \nIf you would like to re-submit your QOTW for whatever reason, please contact <@{rp_lead}>.
 '''
@@ -34,7 +34,7 @@ class DiscordClient(discord.Client):
         self.loop.create_task(self.qotw_reminder_loop())
         self.last_sent = self.get_last_announce_from_file() #'2020-07-19-20:03:41'
         self.writing_file = False
-    
+
 
     async def on_message(self, message):
         if message.author == self.user: return
@@ -74,7 +74,7 @@ class DiscordClient(discord.Client):
                 return (True, now_date)
             else:
                 return (False, None)
-        
+
         if now_day != day_to_post:
             return (False, None)
 
@@ -85,7 +85,7 @@ class DiscordClient(discord.Client):
 
         if old_day != current_day or old_month != current_month:
             return (True, now_date)
-        
+
         return (False, None)
 
     async def qotw_reminder_loop(self):
@@ -98,7 +98,7 @@ class DiscordClient(discord.Client):
                     if not c == None:
                         r = self.should_post_qotw()
                         send_now = r[0]
-                    
+
                         if send_now and not self.writing_file:
                             self.writing_file = True
                             await c.send(qotw_reminder_msg)
@@ -108,7 +108,7 @@ class DiscordClient(discord.Client):
 
             except Exception as e:
                 traceback.print_exc()
-                    
+
             await asyncio.sleep(5)
 
 
